@@ -36,7 +36,15 @@ def buyLotsOfFruit(orderList):
     """
     totalCost = 0.0
     "*** YOUR CODE HERE ***"
-    
+    for fruit, numPounds in orderList:
+        costPerPound = fruitPrices[fruit]
+        if costPerPound != None:
+            totalCost += numPounds * costPerPound
+    print('Cost of', orderList, 'is', totalCost)
+    return totalCost
+
+
+
 
 # Main Method
 if __name__ == '__main__':
