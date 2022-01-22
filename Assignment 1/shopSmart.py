@@ -34,6 +34,16 @@ def shopSmart(orderList, fruitShops):
     """
     "*** YOUR CODE HERE ***"
 
+    minValue = math.inf
+    Shop = ""
+    for shops in fruitShops:
+        price = shops.getPriceOfOrder(orderList)
+        if (price < minValue):
+            minValue = price
+            Shop = shops.getName()
+
+    print("For orders ", orderList, ", the best shop is", "<FruitShop: " + Shop + ">")
+    return "<FruitShop: " + Shop + ">"
 
 
 if __name__ == '__main__':
