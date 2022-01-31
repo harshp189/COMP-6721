@@ -126,6 +126,36 @@ def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
 
+    # queue for maintaining the states as they are explored from the start state
+    open_queue = util.Queue()
+
+    # list for storing all the visited states
+    closed_list = []
+
+    initialStartState = problem.getStartState()
+
+    open_queue.push((initialStartState, []))
+
+    while not open_queue.isEmpty():
+        currentState, list_of_actions = open_queue.pop()
+
+        if currentState not in closed_list:
+            closed_list.append(currentState)
+
+            if problem.isGoalState(currentState):
+                return list_of_actions
+
+            else:
+
+                # retrieve the successors of the current state/node and push the new state and action onto the stack
+                currentStateSuccessors = problem.getSuccessors(currentState)
+                for SuccessorState, SuccessorAction, SuccessorCost in currentStateSuccessors:
+                    nextAction = list_of_actions + [SuccessorAction]
+                    open_queue.push((SuccessorState, nextAction))
+
+    # will return the list of actions necessary to reach the goal state
+    return list_of_actions
+
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
