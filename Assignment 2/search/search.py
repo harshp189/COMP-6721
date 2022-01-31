@@ -89,6 +89,37 @@ def depthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
 
 
+    #stack for pushing the states as they are explored from the start state
+    open_stack = util.Stack()
+
+    #list for storing all the visited states
+    closed_list = []
+
+    initialStartState = problem.getStartState()
+
+    open_stack.push((initialStartState,[]))
+
+    while not open_stack.isEmpty():
+        currentState , list_of_actions = open_stack.pop()
+
+        if currentState not in closed_list:
+            closed_list.append(currentState)
+
+            if problem.isGoalState(currentState):
+                return list_of_actions
+
+            else:
+
+                #retrieve the successors of the current state/node and push the new state and action onto the stack
+                currentStateSuccessors = problem.getSuccessors(currentState)
+                for SuccessorState,SuccessorAction,SuccessorCost in currentStateSuccessors:
+                        nextAction = list_of_actions + [SuccessorAction]
+                        open_stack.push((SuccessorState,nextAction))
+
+    #will return the list of actions necessary to reach the goal state
+    return list_of_actions
+
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
