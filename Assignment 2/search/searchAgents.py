@@ -288,6 +288,10 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
+        # Here we are marking the corner's state when starting the search, if the corners are visited they will be
+        # marked '1' and if they are not visited they will be marked '0'
+        # Here the list[] represents the 4 different corners's state
+        self.cornersVisited = [0, 0, 0, 0]
 
     def getStartState(self):
         """
@@ -295,6 +299,7 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
+        return (self.startingPosition, self.cornersVisited)
         util.raiseNotDefined()
 
     def isGoalState(self, state):
