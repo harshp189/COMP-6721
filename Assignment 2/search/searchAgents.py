@@ -1,3 +1,5 @@
+import copy
+
 22222# searchAgents.py
 # ---------------
 # Licensing Information:  You are free to use or extend these projects for
@@ -328,15 +330,37 @@ class CornersProblem(search.SearchProblem):
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
-            # Add a successor state to the successor list if the action is legal
-            # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
-
             "*** YOUR CODE HERE ***"
 
+            # Add a successor state to the successor list if the action is legal
+            # Here's a code snippet for figuring out whether a new position hits a wall:
+
+            x, y = state[0]
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            hitsWall = self.walls[nextx][nexty]
+            # creating a shallow copy of the corners list so that any changes made to a copy of object do reflect in the
+            # original list
+            shallowCorners = copy.copy(state[1])
+
+            if not hitsWall:
+                newState = nextx, nexty
+
+                if (newState) in self.corners:
+                    if newState == self.corners[0]:
+                        shallowCorners[0] = 1
+                    if newState == self.corners[1]:
+                        shallowCorners[1] = 1
+                    if newState == self.corners[2]:
+                        shallowCorners[2] = 1
+                    if newState == self.corners[3]:
+                        shallowCorners[3] = 1
+
+                    # shallowCorners[self.corners.index(newState)] = 1
+
+                successorNextState = (newState, shallowCorners)
+                stepCost = 1
+                successors.append((successorNextState, action, stepCost))
         self._expanded += 1 # DO NOT CHANGE
         return successors
 
