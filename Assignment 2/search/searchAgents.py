@@ -504,9 +504,25 @@ def foodHeuristic(state, problem):
     Subsequent calls to this heuristic can access
     problem.heuristicInfo['wallCount']
     """
-    position, foodGrid = state
+
     "*** YOUR CODE HERE ***"
-    return 0
+
+    position, foodGrid = state
+    maxDistance = 0
+    foodl = foodGrid.asList() # this will make a list of food coordiantes which will be helpful for getting the distance from the pacman position
+    for foodPosition in foodGrid.asList():
+        xy1 = position # pacman position
+        xy2 = foodPosition # position of the food
+
+        #distance = mazeDistance(xy1, xy2, problem.startingGameState)
+        #distance = manhattanHeuristic(xy1,xy2)
+        distance = (abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1]))
+
+        if distance > maxDistance:
+            maxDistance = distance
+    # max distance will tell about the maximum the pacman has to move in order to eat all the food
+    return maxDistance
+
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
