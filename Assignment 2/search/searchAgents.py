@@ -592,6 +592,17 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x,y = state
 
         "*** YOUR CODE HERE ***"
+        # foodList will contain the position of food as a list i.e it will provide the coordinates through which we can
+        # check if pacman is in desired goal state or not
+
+        foodList = self.food.asList()
+
+        # if the pacman's position reaches the food in the foodList true will be returned or else false will be returned
+        if state not in foodList:
+            return False
+        else:
+            return True
+
         util.raiseNotDefined()
 
 def mazeDistance(point1, point2, gameState):
